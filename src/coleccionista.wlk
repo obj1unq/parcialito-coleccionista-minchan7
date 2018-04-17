@@ -67,7 +67,47 @@
 // PUNTO 1: COLECCIONES
 object coleccionista {
 	
-	//TODO: Completar la implementacion de este objeto		
+	var galeria = #{}
+	
+	method agregarElemento(unElemento){
+		galeria.add(unElemento)
+		}
+		
+	method quitarElemento(unElemento){
+		galeria.remove(unElemento)
+	}	
+	
+	method objetosFragiles() =	galeria.filter({objeto=>objeto.esFragil()})
+	
+	
+	method objetoFragilMasCaro() =  self.objetosFragiles().max({objeto=>objeto.valor()})
+	
+	method valorEnObjetosFragiles(){
+		
+		return self.objetosFragiles().sum({objeto=>objeto.valor()})
+	}
+	
+	method valorEnCategoria(unaCategoria){
+		
+		return self.objetosDeEsaCategoria(unaCategoria).sum({objeto=>objeto.valor()})
+	}
+	
+	method objetosDeEsaCategoria(unaCategoria){
+		
+		return galeria.filter({objeto=>objeto.categoria() == unaCategoria})
+	}
+	
+	method existeElementoDe(unaCategoria){
+		
+		return galeria.any({objeto=>objeto.categoria() == unaCategoria})
+	}
+	
+	method categorias(){
+		return galeria.map({objeto=>objeto.categoria()}).asSet()
+	}
+	
+	method todosValiosos() = galeria.all({objeto=>objeto.valor()>600})
+	
 
 }
 
@@ -108,8 +148,36 @@ object musica {
 
 // PUNTO 2: POLIMORFISMO. 
 object guitarraElectrica {
-   //TODO Completar la implementacion de este objeto
+	
+	var property estuche = flexible
+	var property microfono = gibson
+	method esFragil() = estuche.esFragil()
+	method valor() = 10000 + microfono.valor()	
+	method categoria() = musica
+	
+  
+}
+object gibson{
+	method valor()=	1000
+	method categoria() = musica
+	method esFragil() = false
 }
 
-//TODO: agregar los objetos que falten! Si no agregaste ninguno repensá tu solución; pista: el punto se llama "POLIMORFISMO" 
+object diMarzio{
+	method valor() = 800
+	method categoria() = musica
+	method esFragil() = false
+}
 
+object flexible{
+	method valor() = 0
+	method esFragil() = true
+	method categoria() = musica
+}
+
+object rigido{
+	method valor() = 0
+	method esFragil() = false
+	method categoria() = musica
+}
+//TODO: agregar los objetos que falten! Si no agregaste ninguno repensá tu solución; pista: el punto se llama "POLIMORFISMO" 

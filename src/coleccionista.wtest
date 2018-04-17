@@ -8,6 +8,8 @@ describe "tests del coleccionista "{
 		coleccionista.agregarElemento(muniecoHeman )
 		coleccionista.agregarElemento(discoViniloLaBalsa)
 	}
+	
+	
 
 
 	test "objetos fragiles" {
